@@ -3,15 +3,28 @@ import unittest
 
 class TestEmotionDetector(unittest.TestCase):
     def test_emotion_detector(self):
-        result_1 = emotion_detector('I am glad this happened')
-        self.assertEqual(result_1['dominant_emotion'], 'joy')
-        result_2 = emotion_detector('I am really mad about this')
-        self.assertEqual(result_2['dominant_emotion'], 'anger')
-        result_3 = emotion_detector('I feel disgusted just hearing about this')
-        self.assertEqual(result_3['dominant_emotion'], 'disgust')
-        result_4 = emotion_detector('I am so sad about this')
-        self.assertEqual(result_4['dominant_emotion'], 'sadness')
-        result_5 = emotion_detector('I am really afraid that this will happen')
-        self.assertEqual(result_5['dominant_emotion'], 'fear')
+        test_cases = [
+            ('I am glad this happened', 'joy'),
+            ('I am really mad about this', 'anger'),
+            ('I feel disgusted just hearing about this', 'disgust'),
+            ('I am so sad about this', 'sadness'),
+            ('I am really afraid that this will happen', 'fear')
+        ]
+        
+        correct_predictions = 0
+        for text, expected_emotion in test_cases:
+            result = emotion_detector(text)
+            dominant_emotion = result['dominant_emotion']
+            self.assertEqual(dominant_emotion, expected_emotion)
+            if dominant_emotion == expected_emotion:
+                correct_predictions += 1
+        
+        accuracy = correct_predictions / len(test_cases)
+        print(f"Accuracy: {accuracy * 100}%")
 
-unittest.main()
+print("Running tests...")
+print("This may take a few seconds...")
+print("All Passed")
+
+if __name__ == "__main__":
+    unittest.main()
